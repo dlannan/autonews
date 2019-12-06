@@ -1,0 +1,36 @@
+[project]
+title = autonews
+version = 0.1
+dependencies = https://github.com/defold/extension-webview/archive/master.zip
+write_log = 0
+custom_resources = /custom_resources/
+bundle_resources = 
+
+[bootstrap]
+main_collection = /main/main.collectionc
+
+[input]
+game_binding = /input/game.input_bindingc
+
+[display]
+width = 1080
+height = 1920
+fullscreen = 1
+dynamic_orientation = 1
+
+[physics]
+scale = 0.02
+
+[script]
+shared_state = 1
+
+[android]
+package = com.kakutai.autonews
+
+[ios]
+bundle_identifier = com.defoldtest.webview
+infoplist = /Info.plist
+
+[library]
+include_dirs = webview
+
