@@ -1,21 +1,22 @@
 [project]
-title = autonews
+title = defold-webview
 version = 0.1
-dependencies = https://github.com/defold/extension-webview/archive/master.zip
-write_log = 0
+dependencies = 
+write_log = 1
 custom_resources = /custom_resources/
-bundle_resources = 
+bundle_resources = /bundle_resrouces
 
 [bootstrap]
 main_collection = /main/main.collectionc
+render = /main/main.renderc
 
 [input]
 game_binding = /input/game.input_bindingc
 
 [display]
-width = 1080
-height = 1920
-fullscreen = 1
+width = 1920
+height = 1080
+fullscreen = 0
 dynamic_orientation = 1
 
 [physics]
@@ -32,5 +33,9 @@ bundle_identifier = com.defoldtest.webview
 infoplist = /Info.plist
 
 [library]
-include_dirs = webview
+include_dirs = 
+
+[render]
+clear_color_green = 0.0
+clear_color_blue = 1.0
 
