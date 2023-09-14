@@ -4,6 +4,5 @@ INFO:WEBVIEWEXTERNAL: Calling OpenLibrary
 INFO:WEBVIEWEXTERNAL: Running in the editor. Will attempt to load libraries from project
 INFO:LIVEUPDATE: Could not find base .arci/.arcd. Liveupdate disabled
 INFO:ENGINE: Initialised sound device 'default'
-DEBUG:SCRIPT: nil
 INFO:DLIB: SSDP: Started on address 172.25.48.1
 INFO:DLIB: SSDP: Started on address 192.168.50.151

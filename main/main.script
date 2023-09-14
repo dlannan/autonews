@@ -46,7 +46,8 @@ end
 
 local function window_callback(self, event, data)
     if event == window.WINDOW_EVENT_RESIZED then
-
+        local width, height = window.get_size()
+        webview.set_position(self.webview_id, 0, 0, width,height)
     end
 end
 
@@ -97,7 +98,6 @@ function init(self)
     if not webview_available() then return end
     self.webview_id = webview.create(1, webview_callback)
     local width, height = window.get_size()
-    pprint(win)
     webview.set_position(self.webview_id, 0, 0, width,height)
     webview.open_raw(self.webview_id, self.feedback_html)
     --webview.open(self.webview_id, "https://google.com")
