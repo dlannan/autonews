@@ -96,8 +96,11 @@ function init(self)
         
     if not webview_available() then return end
     self.webview_id = webview.create(1, webview_callback)
-    --webview.open_raw(self.webview_id, self.feedback_html)
-    webview.open(self.webview_id, "https://google.com")
+    local width, height = window.get_size()
+    pprint(win)
+    webview.set_position(self.webview_id, 0, 0, width,height)
+    webview.open_raw(self.webview_id, self.feedback_html)
+    --webview.open(self.webview_id, "https://google.com")
     window.set_listener(window_callback)
 
     self.angle = 0.0
