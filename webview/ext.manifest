@@ -23,7 +23,7 @@ platforms:
           excludeLibs: []
           excludeSymbols: []
           symbols: []
-          libs: ["webview.lib","WebView2LoaderStatic.lib"]
+          libs: []
           linkFlags: []
 
   x86_64-linux:
@@ -32,5 +32,5 @@ platforms:
           excludeLibs: []
           excludeSymbols: []
           symbols: []
-          libs: ["webview" ]
+          libs: []
           linkFlags: []

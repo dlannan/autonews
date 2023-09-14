@@ -1,16 +1,12 @@
 #if !defined(DM_PLATFORM_ANDROID) && !defined(DM_PLATFORM_IOS) && !defined(DM_PLATFORM_OSX)
 
 #include <stdio.h>
-#include <webview.h>
+#include <sym_webview.h>
 
-// include the Defold SDK
-#include <dmsdk/sdk.h>
-
-#include "webview.h"
 
 namespace dmWebView
 {
-	static const int MAX_NUM_WEBVIEWS = 4;
+//	static const int MAX_NUM_WEBVIEWS = 4;
 
 	enum CallbackResult
 	{
@@ -28,12 +24,11 @@ namespace dmWebView
 	static int Create(lua_State* L)
 	{
 		int debug = luaL_checknumber(L,1);
-		void * window = lua_touserdata(L,2);
 
 		HWND hwnd = dmGraphics::GetNativeWindowsHWND();
-		webview_t wvobj = (webview_t)webview_create_ex(debug, nullptr, WS_OVERLAPPED, WS_EX_LAYERED);
-		webview_set_background_color( wvobj, 0xffffff, 1 );
-		HWND wvwin = (HWND)webview_get_window(wvobj);
+		webview_t wvobj = (webview_t)sym_webview_create_ex(debug, nullptr, WS_OVERLAPPED, WS_EX_LAYERED);
+		sym_webview_set_background_color( wvobj, 0xffffff, 1 );
+		HWND wvwin = (HWND)sym_webview_get_window(wvobj);
 
 		SetParent(wvwin, hwnd);
 		lua_pushlightuserdata(L, wvobj);
@@ -47,7 +42,7 @@ namespace dmWebView
 	static int Destroy(lua_State* L)
 	{
 		webview_t wvobj = (webview_t)lua_touserdata(L, 1);
-		webview_destroy(wvobj);
+		sym_webview_destroy(wvobj);
 		return 0;
 	}
 
@@ -60,7 +55,7 @@ namespace dmWebView
 		webview_t wvobj = (webview_t)lua_touserdata(L, 1);
 		const char* url = luaL_checkstring(L, 2);
 
-		webview_navigate(wvobj, url);
+		sym_webview_navigate(wvobj, url);
 		return 0;
 	}
 
@@ -69,7 +64,7 @@ namespace dmWebView
 		webview_t wvobj = (webview_t)lua_touserdata(L, 1);
 		const char* url = luaL_checkstring(L, 2);
 
-		webview_set_html(wvobj, url);
+		sym_webview_set_html(wvobj, url);
 		return 0;
 	}
 
@@ -78,7 +73,7 @@ namespace dmWebView
 		webview_t wvobj = (webview_t)lua_touserdata(L, 1);
 		const char* code = luaL_checkstring(L, 2);
 
-		webview_eval(wvobj, code);
+		sym_webview_eval(wvobj, code);
 		return 0;
 	}
 
@@ -87,7 +82,7 @@ namespace dmWebView
 		webview_t wvobj = (webview_t)lua_touserdata(L, 1);
 		const int visible = luaL_checknumber(L, 2);
 
-		HWND hwnd = (HWND)webview_get_window(wvobj);
+		HWND hwnd = (HWND)sym_webview_get_window(wvobj);
 		if(visible == 0)
 			ShowWindow(hwnd, 0);
 		else
@@ -99,7 +94,7 @@ namespace dmWebView
 	{
 		webview_t wvobj = (webview_t)lua_touserdata(L, 1);
 
-		HWND hwnd = (HWND)webview_get_window(wvobj);
+		HWND hwnd = (HWND)sym_webview_get_window(wvobj);
 		int visible = IsWindowVisible(hwnd)?1:0;
 		lua_pushnumber(L, visible);
 		return 1;
@@ -113,15 +108,15 @@ namespace dmWebView
 		const int width = luaL_checknumber(L, 4);
 		const int height = luaL_checknumber(L, 5);
 
-		webview_set_pos(wvobj, x, y);
-		webview_set_size(wvobj, width, height, 0);
+		sym_webview_set_pos(wvobj, x, y);
+		sym_webview_set_size(wvobj, width, height, 0);
 		return 0;
 	}
 
 	static int Poll(lua_State* L)
 	{
 		webview_t wvobj = (webview_t)lua_touserdata(L, 1);
-		webview_poll(wvobj);
+		sym_webview_poll(wvobj);
 		return 0;
 	}
 	
@@ -172,6 +167,8 @@ namespace dmWebView
 
 	static dmExtension::Result WebView_Initialize(dmExtension::Params* params)
 	{
+		Webview_openLibrary(params->m_ConfigFile);
+		
 		// Init Lua
 		LuaInit(params->m_L);
 		printf("Registered %s Extension\n", "webview");
@@ -180,6 +177,7 @@ namespace dmWebView
 
 	static dmExtension::Result WebView_Finalize(dmExtension::Params* params)
 	{
+		Webview_closeLibrary();
 		return dmExtension::RESULT_OK;
 	}
 
