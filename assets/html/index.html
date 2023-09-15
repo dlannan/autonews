@@ -1,75 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Plyr - A simple, customizable HTML5 Video, Audio, YouTube and Vimeo player</title>
-    <meta
-      name="description"
-      property="og:description"
-      content="A simple HTML5 media player with custom controls and WebVTT captions."
-    />
-    <meta name="author" content="Sam Potts" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://www.iconpacks.net/icons/2/free-youtube-logo-icon-2431-thumb.png" type="image/x-icon">
+    <title>Video Player: Reboot13</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-    <!-- Icons -->
-    <link rel="icon" href="https://cdn.plyr.io/static/icons/favicon.ico" />
-    <link rel="icon" type="image/png" href="https://cdn.plyr.io/static/icons/32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="https://cdn.plyr.io/static/icons/16x16.png" sizes="16x16" />
-    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.plyr.io/static/icons/180x180.png" />
+<div class="main">
+        <h3><img height="55px" width="55px"  src="https://www.iconpacks.net/icons/2/free-youtube-logo-icon-2431-thumb.png">Video Player</h3>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Video URL" id="url">
+            <button onclick="play()" class="btn btn-outline-secondary" type="button">&nbsp;Play&nbsp;</button>
+            <button class="btn btn-danger" type="button" onclick="history.go(0)">&nbsp;Reset&nbsp;</button>
+          </div>
+     <div class="video-player">
+    <iframe width="560" height="315" id="iframe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; download" allowfullscreen src="https://www.youtube.com/embed/TQiBcjV3M0w"></iframe>
+</div>
+</div>
+<footer>
+    <p>&copy;reboot13-git/<a href="https://github.com/reboot13-git/video-player">video-player</a></p>
+</footer>
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Plyr - A simple, customizable HTML5 Video, Audio, YouTube and Vimeo player" />
-    <meta property="og:site_name" content="Plyr" />
-    <meta property="og:url" content="https://plyr.io" />
-    <meta property="og:image" content="https://cdn.plyr.io/static/icons/1200x630.png" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@sam_potts" />
-    <meta name="twitter:creator" content="@sam_potts" />
-    <meta name="twitter:card" content="summary_large_image" />
-
-    <!-- Docs styles -->
-    <link rel="stylesheet" href="dist/demo.css" />
-
-    <!-- Preload -->
-    <link
-      rel="preload"
-      as="font"
-      crossorigin
-      type="font/woff2"
-      href="https://cdn.plyr.io/static/fonts/gordita-medium.woff2"
-    />
-    <link
-      rel="preload"
-      as="font"
-      crossorigin
-      type="font/woff2"
-      href="https://cdn.plyr.io/static/fonts/gordita-bold.woff2"
-    />
-
-    <!-- Google Analytics-->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132699580-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'UA-132699580-1');
-    </script>
-  </head>
-
-  <body>
-    <!-- <div class="plyr__video-embed" id="player">
-      <iframe
-        src="https://www.youtube.com/embed/zzi-xYU2vSI?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
-        allowfullscreen
-        allowtransparency
-        allow="autoplay"
-      ></iframe> -->
-    </div>
-    <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="zzi-xYU2vSI"></div>
-    <script src="src/js/demo.js"></script>
-  </body>
+</body>
 </html>
+
+
