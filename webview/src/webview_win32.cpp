@@ -26,11 +26,8 @@ namespace dmWebView
 		int debug = luaL_checknumber(L,1);
 
 		HWND hwnd = dmGraphics::GetNativeWindowsHWND();
-		webview_t wvobj = (webview_t)sym_webview_create_ex(debug, nullptr, WS_OVERLAPPED, WS_EX_LAYERED);
+		webview_t wvobj = (webview_t)sym_webview_create_ex(debug, &hwnd, WS_OVERLAPPED, WS_EX_LAYERED);
 		sym_webview_set_background_color( wvobj, 0xffffff, 1 );
-		HWND wvwin = (HWND)sym_webview_get_window(wvobj);
-
-		SetParent(wvwin, hwnd);
 		lua_pushlightuserdata(L, wvobj);
 		return 1;
 	}
@@ -110,6 +107,15 @@ namespace dmWebView
 
 		sym_webview_set_pos(wvobj, x, y);
 		sym_webview_set_size(wvobj, width, height, 0);
+		sym_webview_resize(wvobj);
+
+		return 0;
+	}
+
+	static int AddFileHandling(lua_State *L)
+	{
+		webview_t wvobj = (webview_t)lua_touserdata(L, 1);
+		sym_add_file_handling(wvobj);
 		return 0;
 	}
 
@@ -129,6 +135,7 @@ namespace dmWebView
 		{"eval", Eval},
 		{"set_visible", SetVisible},
 		{"set_position", SetPosition},
+		{"add_filehandling", AddFileHandling},
 		{"is_visible", IsVisible},
 		{"poll", Poll},
 		{0, 0}

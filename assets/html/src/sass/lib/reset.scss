@@ -1,0 +1,15 @@
+// ==========================================================================
+// Resets
+// ==========================================================================
+
+// BORDER-BOX ALL THE THINGS!
+// http://paulirish.com/2012/box-sizing-border-box-ftw/
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+button {
+  all: unset;
+}

@@ -1,0 +1,42 @@
+// ==========================================================================
+// Links
+// ==========================================================================
+
+.link {
+  align-items: center;
+  border-bottom: 1px dashed currentColor;
+  color: $color-link;
+  position: relative;
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &::after {
+    background: currentColor;
+    content: '';
+    height: 1px;
+    left: 50%;
+    position: absolute;
+    top: 100%;
+    transform: translateX(-50%);
+    transition: width 0.2s ease;
+    width: 0;
+  }
+
+  &:hover,
+  &:focus {
+    border-bottom-color: transparent;
+    outline: 0;
+
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &:focus-visible {
+    @include focus-visible($color-link);
+  }
+
+  &.no-border::after {
+    display: none;
+  }
+}

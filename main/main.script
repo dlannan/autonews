@@ -47,7 +47,7 @@ end
 local function window_callback(self, event, data)
     if event == window.WINDOW_EVENT_RESIZED then
         local width, height = window.get_size()
-        webview.set_position(self.webview_id, 0, 0, width,height)
+        webview.set_position(self.webview_id, 0, 0, width, height)
     end
 end
 
@@ -99,9 +99,11 @@ function init(self)
     self.webview_id = webview.create(1, webview_callback)
     local width, height = window.get_size()
     webview.set_position(self.webview_id, 0, 0, width,height)
-    webview.open_raw(self.webview_id, self.feedback_html)
-    --webview.open(self.webview_id, "https://google.com")
+    --webview.open_raw(self.webview_id, self.feedback_html)
+    --webview.open(self.webview_id, "file:///D:/dev/defold/repos/autonews/assets/html/index.html")
+    webview.open(self.webview_id, "https://youtube.com")
     window.set_listener(window_callback)
+    webview.add_filehandling(self.webview_id)
 
     self.angle = 0.0
 end
@@ -115,7 +117,7 @@ function update(self, dt)
     go.set_rotation(rot_angley, "/models#cube")
     if self.angle > math.pi * 2.0 then self.angle = self.angle - math.pi * 2.0 end
         
-    webview.poll(self.webview_id);
+    --webview.poll(self.webview_id);
 end
 
 function on_input(self, action_id, action)
