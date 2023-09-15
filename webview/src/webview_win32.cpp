@@ -27,11 +27,18 @@ namespace dmWebView
 
 		HWND hwnd = dmGraphics::GetNativeWindowsHWND();
 		webview_t wvobj = (webview_t)sym_webview_create_ex(debug, &hwnd, WS_OVERLAPPED, WS_EX_LAYERED);
-		sym_webview_set_background_color( wvobj, 0xffffff, 1 );
 		lua_pushlightuserdata(L, wvobj);
 		return 1;
 	}
 
+	static int SetBackgroundColor(lua_State* L)
+	{
+		webview_t wvobj = (webview_t)lua_touserdata(L, 1);
+		int color = luaL_checknumber(L,2);
+		sym_webview_set_background_color( wvobj, color, 1 );
+		return 0;
+	}
+	
 	/** Closes a web view
 	@param id the web view id
 	@return -1 if an error occurred. 0 if it was destroyed
@@ -105,10 +112,8 @@ namespace dmWebView
 		const int width = luaL_checknumber(L, 4);
 		const int height = luaL_checknumber(L, 5);
 
-		sym_webview_set_pos(wvobj, x, y);
+		if(x >= 0 && y >= 0) sym_webview_set_pos(wvobj, x, y);
 		sym_webview_set_size(wvobj, width, height, 0);
-		sym_webview_resize(wvobj);
-
 		return 0;
 	}
 
@@ -136,6 +141,7 @@ namespace dmWebView
 		{"set_visible", SetVisible},
 		{"set_position", SetPosition},
 		{"add_filehandling", AddFileHandling},
+		{"set_background_color", SetBackgroundColor},
 		{"is_visible", IsVisible},
 		{"poll", Poll},
 		{0, 0}

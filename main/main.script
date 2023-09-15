@@ -1,3 +1,50 @@
+require("main.util-utf8")
+
+local function process_data(self, data)
+    local newdata = [[
+    <html>
+    <head></head>
+    <body>
+    ]]
+    local search_text = [[<div aria%-level="3" role="heading"[^>]+.?(.-)</div>]]
+    local search_link = [[<a class="[^"]+.? role="presentation" href="([^"]+)(.-)</a>]]
+    for w, v in string.gmatch(data, search_link) do
+        local m = string.match(v, search_text)
+        newdata = newdata..[[<a href="]]..w..[[">]].."<div>"..m.."</div></a>"
+    end
+    newdata = newdata..[[</body></html>]]
+    self.result = newdata
+end    
+
+local function search_request(self, search)
+
+    local req = 'curl -A "Mozilla/5.0 (MSIE; Windows 10)" -o res.html '
+    local search_google = 'https://www.google.com/search?q='..search..[[&num=50&as_qdr=w]]
+
+    local search_youtube = [[--request POST --url 'https://www.youtube.com/youtubei/v1/player?key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8' ]]
+    search_youtube = search_youtube..[[--header 'Content-Type: application/json' ]]
+    search_youtube = search_youtube..[[--header 'Origin: https://www.youtube.com' ]]
+    search_youtube = search_youtube..[[--header 'X-YouTube-Client-Name: 3' ]]
+    search_youtube = search_youtube..[[--header 'X-YouTube-Client-Version: 16.20' ]]
+    search_youtube = search_youtube..[[--data '{ "context": {"client": {]]
+    search_youtube = search_youtube..[["clientName": "ANDROID","clientVersion": "16.20","hl": "en"]]
+    search_youtube = search_youtube..[[}}, "videoId": "dQw4w9WgXcQ",}']]
+
+    local function handle_response(self, id, response)
+        --print(response.status, response.response)
+        process_data(self, response.response)
+    end
+
+    self.result = nil
+    local headers = {
+        ["User-Agent"] = "Mozilla/5.0 (MSIE; Windows 10)"
+    }   
+    local options = {
+        ["path"] = "res.html"
+    } 
+    http.request(search_google, "GET", handle_response, headers) 
+end
+
 
 local function webview_callback(self, webview_id, request_id, type, data)
     if type == webview.CALLBACK_RESULT_URL_OK then
@@ -47,7 +94,7 @@ end
 local function window_callback(self, event, data)
     if event == window.WINDOW_EVENT_RESIZED then
         local width, height = window.get_size()
-        webview.set_position(self.webview_id, 0, 0, width, height)
+        webview.set_position(self.webview_id, -1, -1, width, height)
     end
 end
 
@@ -100,11 +147,14 @@ function init(self)
     local width, height = window.get_size()
     webview.set_position(self.webview_id, 0, 0, width,height)
     --webview.open_raw(self.webview_id, self.feedback_html)
-    webview.open(self.webview_id, "file://D:/dev/defold/repos/autonews/assets/html/index.html")
+    -- webview.open(self.webview_id, "file://D:/dev/defold/repos/autonews/assets/html/index.html")
     --webview.open(self.webview_id, "https://youtube.com")
     window.set_listener(window_callback)
     webview.add_filehandling(self.webview_id)
+    --webview.set_background_color(self.webview_id, 0xffffff)
 
+    search_request(self, "aus%20news")
+    self.result = nil
     self.angle = 0.0
 end
 
@@ -116,7 +166,12 @@ function update(self, dt)
     go.set_rotation(rot_anglez, "/models#sphere")
     go.set_rotation(rot_angley, "/models#cube")
     if self.angle > math.pi * 2.0 then self.angle = self.angle - math.pi * 2.0 end
-        
+
+    if self.result then 
+        webview.open_raw(self.webview_id, self.result)
+        pprint("[RESULT] : ", self.result)
+        self.result = nil 
+    end
     --webview.poll(self.webview_id);
 end
 

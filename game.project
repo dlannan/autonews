@@ -37,7 +37,7 @@ include_dirs = webview
 
 [render]
 clear_color_green = 0.0
-clear_color_blue = 1.0
+clear_color_blue = 0.0
 
 [webview]
 lib_path = webview/res
