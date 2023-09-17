@@ -8,6 +8,7 @@ void Sleep( uint32_t tm );
 ]]
 
 local vid_thumb = { w=455, h=256 }
+local num_fetch = 10
 
 local agents = {
     "Mozilla/5.0 (Linux; Android 13; Pixel 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36",
@@ -46,12 +47,16 @@ local headers = {
     -- ["Accept-Languages"] = "en-US,en;q=0.9",
     -- ["Cache-Controls"] = "max-age=0",
     -- ["Upgrade-Insecure-Requests"] = 1,
-    ["Cookie"] = cookie,
+    --["Cookie"] = cookie,
 }   
 -- Add this as 6th param to write to file
 local options = {
     ["path"] = "res.html"
 } 
+
+local main_page_model = {
+    rows = {},
+}     
 
 local function dump_page(self, doc, filename)
 
@@ -62,52 +67,45 @@ local function dump_page(self, doc, filename)
     end
 end
 
-local main_page_model = {
-   rows = {},
-}     
+local function load_page(self, filename)
+
+    local doc = ""
+    local fh = io.open(filename, "r")
+    if(fh) then 
+        doc = fh:read("*a")
+        fh:close()
+    end    
+    return doc
+end
+
+function loadJSscript( filename )
+    local text = sys.load_resource(filename)
+    return "<script>"..tostring(text).."</script>"
+end
+
+function loadCSSscript( filename )
+    local text = sys.load_resource(filename)
+    return "<style>"..tostring(text).."</style>" 
+end
+
    
 local function init_main_page(self)
     self.main_page_ready = nil
     self.rows_done = 0
-    self.main_page = [[
-        <html>
-            <head>
-                <script src="assets/html/app.js"></script>
-                <link rel="stylesheet" href="assets/html/styles.css">
-                <style>
-                div.row {
-                    display: flex;
-                    flex-direction:row;
-                    min-height: 40px;
-                }
-                div.column {
-                    flex: 1 1 0px;
-                }     
-                div.scroll {
-                    margin: 4px, 4px;
-                    padding: 4px;
-                    overflow-x: auto;
-                    overflow-y: hidden;
-                    white-space: nowrap;
-                }                           
-                </style>
-            </head>
-            <body>
-            {{#rows}}
-            <div class="scroll row" id="{{{row}}}">{{{data}}}</div>
-            {{/rows}}
-            </body>
-        </html>
-    ]]
-
+    local html_data = {
+        css_easygrid = loadCSSscript("/assets/html/css/easygrid.css"),
+        css_boostrap = loadCSSscript("/assets/html/css/bootstrap.min.css"),
+        js_easygrid = loadJSscript("/assets/html/js/easygrid.js"),
+        js_app = loadJSscript("/assets/html/js/app.js"),
+        rows = main_page_model.rows,
+    }
+    local main_page = load_page(self, "assets/html/main_page.html")
+    self.main_page = lustache:render(main_page, html_data)
+    self.main_page_ready = true
 end
 
 local function video_html(self, vid_id)
-    local html = [[
-    <div class="row" class="video-player">
-    <iframe width="]]..vid_thumb.w..[[" height="]]..vid_thumb.h..[[" id="iframe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; download" allowfullscreen src="https://www.youtube.com/embed/]]..vid_id..[["></iframe>
-    </div>
-    ]]
+    local html = [[<div class="video-player"><iframe width="]]..vid_thumb.w..[[" height="]]..vid_thumb.h..[[" id="iframe" src="https://www.youtube.com/embed/]]..vid_id..[[" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>]]
     return html
 end
 
@@ -121,18 +119,21 @@ local function process_data(self, data, row)
     for w, v in string.gmatch(data, search_link) do
         local m = string.match(v, search_text)
         local vid = string.match(w, check_video)
+        rowdata = {}
+        if(m) then m = string.gsub(m, "'", "") end
         if vid then 
-            newdata = newdata..[[<div class="column"><div class="row">]]..m.."</div>"..video_html(self, vid).."</div>\n"
+            rowdata.text = m
+            rowdata.data = video_html(self, vid)
         else
-            newdata = newdata..[[<a href="]]..w..[[">]].."<div>"..m.."</div></a>\n"
+            rowdata.text = m
+            rowdata.data = [[<a href="]]..w..[[ class="btn btn-primary">]]..m..[[</a>]]
         end
+        table.insert(main_page_model.rows, rowdata)
     end
-    table.insert(main_page_model.rows, { row=row, data=newdata })
-    self.rows_done =  self.rows_done + 1
 end    
 
 local function search_google_request(self, search)
-    local search_google = 'https://www.google.com/search?q='..search..[[&num=50&as_qdr=w]]
+    local search_google = 'https://www.google.com/search?q='..search..[[&num=]]..num_fetch..[[&as_qdr=w]]
     headers["Origin"] =  "https://www.google.com"    
     return search_google
 end
@@ -149,7 +150,7 @@ local function search_youtube_request(self, search)
     
     -- local search_youtube = 'https://www.youtube.com/results?search_query='..search
     -- local search_youtube = "https://www.youtube.com/results?app=desktop&search_query="..search
-    local search_youtube = 'https://www.google.com/search?q='..search..[[&num=50&as_qdr=w&as_sitesearch=youtube.com]]
+    local search_youtube = 'https://www.google.com/search?q='..search..[[&num=]]..num_fetch..[[&as_qdr=w&as_sitesearch=youtube.com]]
     headers["Origin"] =  "https://www.google.com"
     --headers["X-YouTube-Client-Name"] = "3"
     --headers["X-YouTube-Client-Version"] = "16.20"
@@ -162,7 +163,8 @@ local function handle_response(self, id, response)
         self.redirect_url = response.headers.location
     else 
         process_data(self, response.response, self.row_id)
-        dump_page(self, response.response, "assets/response.html")
+        dump_page(self, response.response, "assets/response.html")        
+        self.main_page_ready = true
     end
 end
 
@@ -229,16 +231,6 @@ local function window_callback(self, event, data)
     end
 end
 
-function loadJSscript( filename )
-    local text = sys.load_resource(filename)
-    return "<script>"..text.."</script>"
-end
-
-function loadCSSscript( filename )
-    local text = sys.load_resource(filename)
-    return "<style>"..text.."</style>" 
-end
-
 function init(self)
 
     msg.post(".", "acquire_input_focus")
@@ -284,12 +276,11 @@ function init(self)
     webview.add_filehandling(self.webview_id)
     --webview.set_background_color(self.webview_id, 0xffffff)
 
-    init_main_page(self)
-    search_request(self, "us%20news", "row-1")
-    ffi.C.Sleep(math.random(1,10) * 500)
-    search_request(self, "aus%20news", "row-2")
-    ffi.C.Sleep(math.random(1,10) * 500)
-    search_request(self, "europe%20news", "row-3")
+    search_request(self, "europe%20news", "row-1")
+    -- ffi.C.Sleep(math.random(1,10) * 500)
+    -- search_request(self, "aus%20news", "row-2")
+    -- ffi.C.Sleep(math.random(1,10) * 500)
+    -- search_request(self, "europe%20news", "row-3")
     -- dump_page(self, self.main_page)
     self.angle = 0.0
 end
@@ -302,18 +293,15 @@ function update(self, dt)
     go.set_rotation(rot_anglez, "/models#sphere")
     go.set_rotation(rot_angley, "/models#cube")
     if self.angle > math.pi * 2.0 then self.angle = self.angle - math.pi * 2.0 end
-
-    if self.rows_done == 3 then
-        self.main_page_ready = true
-    end
-    
+   
     if self.main_page_ready then 
+        init_main_page(self)
         self.main_page = lustache:render(self.main_page, main_page_model)
+        dump_page(self, self.main_page, "assets/main_page.html")
         webview.open_raw(self.webview_id, self.main_page)
-
+        
         main_page_model.rows = {}
         self.main_page_ready = nil 
-        self.rows_done = 0
     end
 
     if self.redirect_url then 
@@ -321,7 +309,6 @@ function update(self, dt)
         http.request(self.redirect_url, "GET", handle_response, headers)
         self.redirect_url = nil
     end
-    --webview.poll(self.webview_id);
 end
 
 function on_input(self, action_id, action)

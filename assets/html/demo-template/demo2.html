@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+
+    <!-- EasyGrid Plugin Style -->
+    <link rel="stylesheet" type="text/css" href="../css/easygrid.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+  <body>
+
+    <main class="container">
+
+      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+
+        <div class="col-md-12" style="border-top: 1px solid #d2d2d2; margin-top: 39px; min-height:700px;">
+
+              <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                <h1 class="display-4">Other Examples</h1>
+                <p class="lead">What you can do with EasyGrid 👌</p>
+              </div>
+
+              <a style="margin-bottom:10px; z-index:9999; position:relative;" id="randomtiles" class="btn btn-md btn-outline-dark">Random Height</a>
+              <a style="margin-bottom:10px; z-index:9999; position:relative;" id="fixedheight" class="btn btn-md btn-outline-dark">Fixed Height</a>
+              <a style="margin-bottom:10px; z-index:9999; position:relative;" id="boostrapcards" class="btn btn-md btn-outline-dark">Bootstrap Cards</a>
+              <a style="margin-bottom:10px; z-index:9999; position:relative;" id="festuredposts" class="btn btn-md btn-outline-dark">Bootstrap Posts</a> 
+              <a href="javascript:void();" style="margin-bottom:10px; z-index:9999; position:relative;" id="moviecards" class="btn btn-md btn-outline-dark">Movie List</a>
+              <a style="margin-bottom:10px; z-index:9999; position:relative;" id="imagetiles" class="btn btn-md btn-outline-dark">Images</a>  
+       
+
+            <!-- Easy Grid -->
+            <div id="grid" class="easygrid_bvgrid" style=" width:100%; margin-top:25px;"></div>
+
+        </div>
+      </div>
+
+
+    </main> 
+  </body>
+
+  <script src="../js/easygrid.js"></script>
+  <script>
+
+      var interval, settimeout, demo1, demo_filtering;
+      document.addEventListener("DOMContentLoaded", function() {
+            demo1 = new EasyGrid({
+                selector: "#grid",
+                dimensions: {
+                  width: "150",
+                  height: "random",
+                  margin: "15",
+                  minHeight: "100",
+                  maxHeight: "300"
+                },
+                animations: {
+                  fadeInSpeed: "500"
+                },
+                style: {
+                  background: "random",
+                  borderRadius: "5"
+                }
+            });
+      });
+
+
+      /* FIXED HEIGHT */
+      document.getElementById("fixedheight").addEventListener("click", function() {
+
+                  // Clear Previous Demo Cicle
+                  clearInterval(interval);
+                  clearInterval(settimeout);
+
+                  demo1.Change({
+                       dimensions: {
+                        width: "150",
+                        height: "270",
+                        margin: "15",
+                        minHeight: "100", // if height is "random"
+                        maxHeight: "300"  // if height is "random"
+                       },
+                       style: {
+                         background: "random",
+                         borderRadius: "5"
+                       }
+                  });
+
+                 // Append Items
+                 interval = setInterval(function(){ 
+                       demo1.AddItem({
+                          items: ""
+                        });
+
+                  }, 100);  
+                 // Clear Timeout  
+                 settimeout = setTimeout(function(){ clearInterval(interval); }, 2000);  
+      }); 
+
+      /* BOOSTRAP CARDS */
+      document.getElementById("boostrapcards").addEventListener("click", function() {
+
+                  // Clear Previous Demo Cicle
+                  clearInterval(interval);
+                  clearInterval(settimeout);
+
+                  demo1.Change({
+                       dimensions: {
+                        width: "300",
+                        height: "auto",
+                        margin: "10",
+                        minHeight: "100", // if height is "random"
+                        maxHeight: "300"  // if height is "random"
+                       },
+                       style: {
+                         background: "random",
+                         borderRadius: "5"
+                       }
+                  });
+
+                  // Append Items
+                  interval = setInterval(function(){ 
+
+                       demo1.AddItem({
+                          items: '<div class="card" style="color:black; width: 100%;"><img class="card-img-top" src="images/286x180.png" alt="Card image cap"><div class="card-body"><h5 class="card-title">Card title</h5><p class="card-text">Some quick example text to build on the card title and make up the bulk of the cards content.</p><a href="#" class="btn btn-primary">Go somewhere</a></div></div>'
+                        });
+
+                     }, 100); 
+
+                  // Clear Timeout  
+                  settimeout = setTimeout(function(){ clearInterval(interval); }, 1000);  
+
+      }); 
+
+      /* FEATURED POSTS */
+      document.getElementById("festuredposts").addEventListener("click", function() {
+
+                  // Clear Previous Demo Cicle
+                  clearInterval(interval);
+                  clearInterval(settimeout);
+
+                  demo1.Change({
+                       dimensions: {
+                        width: "400",
+                        height: "auto",
+                        margin: "10",
+                        minHeight: "100", // if height is "random"
+                        maxHeight: "300"  // if height is "random"
+                       },
+                       style: {
+                         background: "transparent",
+                         borderRadius: "5"
+                       }
+                  });
+
+                  // Append Items
+                  interval = setInterval(function(){
+
+                       demo1.AddItem({
+                          items: '<div style="width:100%;" class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"> <div class="col p-4 d-flex flex-column position-static"> <strong class="d-inline-block mb-2 text-primary">World</strong> <h3 class="mb-0">Featured post</h3> <div class="mb-1 text-muted">Nov 12</div><p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p><a href="#" class="stretched-link">Continue reading</a> </div><div class="col-auto d-none d-lg-block"> <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> </div></div>'
+                        });
+
+                    }, 100); 
+
+                  // Clear Timeout  
+                  settimeout = setTimeout(function(){ clearInterval(interval); }, 1000);  
+      }); 
+
+      /* MOVIE CARDS */
+      document.getElementById("moviecards").addEventListener("click", function() {
+
+                  // Clear Previous Demo Cicle
+                  clearInterval(interval);
+                  clearInterval(settimeout);
+
+                  demo1.Change({
+                       dimensions: {
+                        width: "200",
+                        height: "auto",
+                        margin: "10",
+                        minHeight: "100", // if height is "random"
+                        maxHeight: "300"  // if height is "random"
+                       },
+                       style: {
+                         background: "random",
+                         borderRadius: "5"
+                       }
+                  });
+
+                  // Append Items
+                  interval = setInterval(function(){
+
+                       demo1.AddItem({
+                          items: '<div style="color:black;" class="card movie_card"><img src="images/200x270.png" class="card-img-top" alt="..."> <div class="card-body"> <i class="fas fa-play play_button" data-toggle="tooltip" data-placement="bottom" title="Play Trailer"></i> <h5 class="card-title" style="margin-left: -3px;">Movie Name</h5> <span class="movie_info">2019</span> <span class="movie_info float-right"><i class="fas fa-star"></i> <span style="font-weight:bold;">9</span> / 10</span></div> </div>'
+                        });
+
+                    }, 100); 
+
+                  // Clear Timeout  
+                  settimeout = setTimeout(function(){ clearInterval(interval); }, 1000);  
+      }); 
+
+      /* IMAGES TILES */
+      document.getElementById("imagetiles").addEventListener("click", function() {
+
+                  // Clear Previous Demo Cicle
+                  clearInterval(interval);
+                  clearInterval(settimeout);
+
+                  demo1.Change({
+                       dimensions: {
+                        width: "200",
+                        height: "auto",
+                        margin: "10",
+                        minHeight: "100", // if height is "random"
+                        maxHeight: "300"  // if height is "random"
+                       },
+                       style: {
+                         background: "transparent",
+                         borderRadius: "5"
+                       }
+                  });
+
+                  // Append Items
+                  interval = setInterval(function(){ 
+
+                       demo1.AddItem({
+                          items: '<div style="text-align:center;"><img style="width:100%;" src="https://via.placeholder.com/200x270"></div>'
+                        });
+
+                  }, 100); 
+
+                  // Clear Timeout  
+                  settimeout = setTimeout(function(){ clearInterval(interval); }, 2000);  
+      }); 
+
+  </script>
+  </html>
