@@ -28,7 +28,13 @@ Developed by: Bruno Vieira
 	box-sizing: border-box;
 }
 
-</style>
+.video-player { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+
+.video-player iframe, .video-player object, 
+.video-player embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+p {
+    font-weight: bold;
+}</style>
 
     <!-- Bootstrap core CSS -->
     <style>@charset "UTF-8";/*!
@@ -84,7 +90,7 @@ Developed by: Bruno Vieira
   </head>
   <body>
 
-    <main class="container">
+    <main>
 
       <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
 
@@ -706,6 +712,16 @@ class EasyGrid {
 }</script>
     <script>var interval, settimeout, demo1, demo_filtering;
 
+function process_url_embed(url) {
+
+    url = url.replace("https://youtu.be/","https://www.youtube.com/embed/");
+    console.log(url)
+    url = url.replace("https://www.youtube.com/watch?v=","https://www.youtube.com/embed/");
+    console.log(url)
+    return url;
+}
+
+
 function render_items() {
 
     // Clear Previous Demo Cicle
@@ -727,37 +743,58 @@ function render_items() {
     });
 
     // Append Items
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=P_jOEgoJskI" title="Vivek Ramaswamys New Pitch | US News | N18L - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top"><div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/embed/yYhVztThBRc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div><div class="card-body"><p class="card-text">Putins Friend Erdogan Breathes Fire Against European Union</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Vivek Ramaswamys New Pitch | US News | N18L - YouTube</p></div></div>'
         });
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=boQKXPbCe7I" title="Donald Trump calls charges against him banana republic indictments" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top"><div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/embed/TSiJA6hqMto" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div><div class="card-body"><p class="card-text">Iran Angers U.S., Europe; Expels Inspectors Monitoring ... - YouTube</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Donald Trump calls charges against him banana republic indictments</p></div></div>'
         });
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=JOCRo97NoJ8" title="I dont consider us to have much of a democracy right now - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top"><div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/embed/zHyP_9mJFow" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div><div class="card-body"><p class="card-text">Zelenskys Direct Threat To EU Allies Over Ban On Grain Imports</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">I dont consider us to have much of a democracy right now - YouTube</p></div></div>'
         });
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=peBUitOswLA" title="Donald Trump News LIVE | Trumps Most Fuming Speech Live | N18L" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top"><div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/embed/GzrlyYfSXJ0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div><div class="card-body"><p class="card-text">Is India becoming Europes new trade darling? | DW News - YouTube</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Donald Trump News LIVE | Trumps Most Fuming Speech Live | N18L</p></div></div>'
         });
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=EzX0nGWU5XI" title="Climate Week NYC 2023 LIVE | US News | N18L - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top"><div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/embed/fgt25P_pDFk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div><div class="card-body"><p class="card-text">Is Germany the sick man of Europes economy? - YouTube</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Climate Week NYC 2023 LIVE | US News | N18L - YouTube</p></div></div>'
         });
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=spH0-dv8YyU" title="Motion Hearing Of Trumps Georgia Case Live - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top"><div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/embed/WVo0cV4xSjA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div><div class="card-body"><p class="card-text">Turkiye secured EU pledge after backing Swedens NATO bid | WION</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Motion Hearing Of Trumps Georgia Case Live - YouTube</p></div></div>'
         });
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=HVhy__li8_0" title="Trump At Concerned Women For America Leadership Summit | N18L" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top"><div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/embed/eLyLtOaDoEY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div><div class="card-body"><p class="card-text">Amid Soaring Imports, Europe to Investigate Chinas Electric Vehicles</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Trump At Concerned Women For America Leadership Summit | N18L</p></div></div>'
         });
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=9FKb0OgUaCg" title="Trump News Live | | US News | N18L - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top"><div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/embed/ede9Z9INmVQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div><div class="card-body"><p class="card-text">China accuses the EU of blatant protectionist behavior | DW News</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Trump News Live | | US News | N18L - YouTube</p></div></div>'
         });
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=SCfDRwWjq1Q" title="Russia expels two U.S. diplomats, new NASA UFO report and more" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top"><div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/embed/w8d1fqjdk88" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div><div class="card-body"><p class="card-text">The EUs balancing act between supporting Ukraine and ... - YouTube</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Russia expels two U.S. diplomats, new NASA UFO report and more</p></div></div>'
         });
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=MJNQ6lbLAkY" title="US Cop Shamelessly Defends Jokes On Indian Students ... - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top"><div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/embed/J2SaC02VIhU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div><div class="card-body"><p class="card-text">Irregular migration needs European answer, says Ursula ... - YouTube</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">US Cop Shamelessly Defends Jokes On Indian Students ... - YouTube</p></div></div>'
         });
 }
+
 
 document.addEventListener("DOMContentLoaded", function() {
       demo1 = new EasyGrid({

@@ -1,5 +1,15 @@
 var interval, settimeout, demo1, demo_filtering;
 
+function process_url_embed(url) {
+
+    url = url.replace("https://youtu.be/","https://www.youtube.com/embed/");
+    console.log(url)
+    url = url.replace("https://www.youtube.com/watch?v=","https://www.youtube.com/embed/");
+    console.log(url)
+    return url;
+}
+
+
 function render_items() {
 
     // Clear Previous Demo Cicle
@@ -22,11 +32,14 @@ function render_items() {
 
     // Append Items
     {{#rows}}
+        indata = '{{{data}}}';
+        data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">{{{data}}}</div><div class="card-body"><p class="card-text">{{{text}}}</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">{{{text}}}</p></div></div>'
         });
     {{/rows}}
 }
+
 
 document.addEventListener("DOMContentLoaded", function() {
       demo1 = new EasyGrid({

@@ -104,8 +104,8 @@ local function init_main_page(self)
     self.main_page_ready = true
 end
 
-local function video_html(self, vid_id)
-    local html = [[<div class="video-player"><iframe width="]]..vid_thumb.w..[[" height="]]..vid_thumb.h..[[" id="iframe" src="https://www.youtube.com/embed/]]..vid_id..[[" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>]]
+local function video_html(self, vid_id, m)
+    local html = [[<div class="video-player"><iframe width="]]..vid_thumb.w..[[" height="]]..vid_thumb.h..[[" id="iframe" src="]]..vid_id..[[" title="]]..m..[[" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>]]
     return html
 end
 
@@ -113,7 +113,7 @@ local function process_data(self, data, row)
     
     local search_text = [[<div aria%-level="3" role="heading"[^>]+.?(.-)</div>]]
     local search_link = [[<a class="[^"]+.? role="presentation" href="([^"]+)(.-)</a>]]
-    local check_video = [[youtube.com/watch%?v=([^"]+)]]
+    local check_video = [[(https://www.youtube.com/watch%?v=[^"]+)]]
     
     local newdata = ""
     for w, v in string.gmatch(data, search_link) do
@@ -123,7 +123,7 @@ local function process_data(self, data, row)
         if(m) then m = string.gsub(m, "'", "") end
         if vid then 
             rowdata.text = m
-            rowdata.data = video_html(self, vid)
+            rowdata.data = video_html(self, vid, m)
         else
             rowdata.text = m
             rowdata.data = [[<a href="]]..w..[[ class="btn btn-primary">]]..m..[[</a>]]
@@ -276,7 +276,7 @@ function init(self)
     webview.add_filehandling(self.webview_id)
     --webview.set_background_color(self.webview_id, 0xffffff)
 
-    search_request(self, "europe%20news", "row-1")
+    search_request(self, "us%20news", "row-1")
     -- ffi.C.Sleep(math.random(1,10) * 500)
     -- search_request(self, "aus%20news", "row-2")
     -- ffi.C.Sleep(math.random(1,10) * 500)
