@@ -1,8 +1,11 @@
 #if !defined(DM_PLATFORM_ANDROID) && !defined(DM_PLATFORM_IOS) && !defined(DM_PLATFORM_OSX)
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <sym_webview.h>
 
+#include <string>
+#include <map>
 
 namespace dmWebView
 {
@@ -130,6 +133,66 @@ namespace dmWebView
 		sym_webview_poll(wvobj);
 		return 0;
 	}
+
+	// This handles the bind call from JS - seq, req and arg are populate from JS
+	typedef void (* BindFunction)( const char *seq, const char *req, void *arg);
+
+	typedef struct _FuncData { 
+		int event;
+		BindFunction func; 
+	} funcData_t;
+		
+	static std::map<std::string, funcData_t *> 	registeredFuncs;
+	
+	static void BindGoogleSearchCaller( const char *seq, const char *req, void *arg)
+	{
+		lua_State *L = (lua_State *)arg;
+		funcData_t *data = registeredFuncs["search_google"];
+		lua_rawgeti( L, LUA_REGISTRYINDEX, data->event );
+		lua_pushstring(L, seq);
+		lua_pushstring(L, req);
+		printf("Sequence: %s    Request: %s\n", seq, req);
+		if ( 0 != lua_pcall( L, 2, 0, 0 ) ) {
+			printf("Failed to call the callback!\n %s\n", lua_tostring(L, -1));
+			return;
+		}
+		//data->event = luaL_ref(L, LUA_REGISTRYINDEX);
+	}
+
+	static void InitBindFunctions()
+	{
+		printf("[Webview] Binding function to: search_google\n"); 
+		registeredFuncs.insert({ "search_google", new funcData_t{ 0,  &BindGoogleSearchCaller } });
+	}
+	
+	static int Bind(lua_State* L)
+	{
+		webview_t wvobj = (webview_t)lua_touserdata(L, 1);
+		const char * name = luaL_checkstring(L, 2);
+		if(!lua_isfunction(L, -1)) { 
+			printf("[Webview] Function not in correct pos on stack?\n"); 
+		}
+		int event = luaL_ref(L, LUA_REGISTRYINDEX);
+		auto iter = registeredFuncs.find(name);
+		if (iter != registeredFuncs.end()) 
+		{
+			iter->second->event = event;
+			sym_webview_bind(wvobj, name, iter->second->func, (void *)L);
+		} else { 
+			printf("[Webview] Function cant be bound to %s\n", name); 
+		}
+		return 0;
+	}
+
+	static int Result(lua_State* L)
+	{
+		webview_t wvobj = (webview_t)lua_touserdata(L, 1);
+		const char * seq = luaL_checkstring(L, 2);
+		int status = luaL_checknumber(L,3);
+		const char * results = luaL_checkstring(L, 4);
+		sym_webview_return(wvobj, seq, status, results);
+		return 0;
+	}
 	
 	static const luaL_reg WebView_methods[] =
 	{
@@ -144,11 +207,15 @@ namespace dmWebView
 		{"set_background_color", SetBackgroundColor},
 		{"is_visible", IsVisible},
 		{"poll", Poll},
+		{"bind", Bind},
+		{"result", Result},
 		{0, 0}
 	};
 
 	static void LuaInit(lua_State* L)
 	{
+		InitBindFunctions();
+		
 		int top = lua_gettop(L);
 		luaL_register(L, "webview", WebView_methods);
 
@@ -163,7 +230,7 @@ namespace dmWebView
 		SETCONSTANT(CALLBACK_RESULT_URL_LOADING)
 
 		#undef SETCONSTANT
-
+		
 		lua_pop(L, 1);
 		assert(top == lua_gettop(L));
 	}

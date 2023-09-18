@@ -40,7 +40,6 @@ function render_items() {
     {{/rows}}
 }
 
-
 document.addEventListener("DOMContentLoaded", function() {
       demo1 = new EasyGrid({
           selector: "#grid",
@@ -60,6 +59,21 @@ document.addEventListener("DOMContentLoaded", function() {
           }
       });
     render_items();
+
+    $('#search-google').click(function () { 
+        console.log("[Search] " + $('#search-text').val());
+        var query = $('#search-text').val();
+        search_google(query);
+    });
+
+    $('#search-text').keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if(keycode == '13'){
+            console.log("[Search] " + $('#search-text').val());
+            var query = $('#search-text').val();
+            search_google(query);
+        }
+    });    
 });
 
 /* FIXED HEIGHT */

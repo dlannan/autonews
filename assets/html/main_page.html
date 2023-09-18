@@ -18,18 +18,18 @@
         <div class="container">
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="#">Search Words</a>
+                        <a class="dropdown-item" href="#">Search Channel Name</a>
+                        <a class="dropdown-item" href="#">Search Subscriptions</a>
                         <div role="separator" class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Separated link</a>
+                        <a class="dropdown-item" href="#">Advanced Options</a>
                     </div>            
                 </div>
-                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <input id="search-text" type="text" class="form-control" placeholder="Search for..." aria-label="Search criteria" aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button">Button</button>
+                    <button id="search-google" class="btn btn-outline-secondary" type="button">Search</button>
                     <button class="btn btn-outline-secondary" type="button">Button</button>
                 </div>
             </div>        
@@ -56,7 +56,9 @@
 
     </main> 
     <!-- Bootstrap core JS -->
-    {{{js_boostrap}}}
+    {{{js_jquery}}}
+    {{{js_popper}}}
+    {{{js_bootstrap}}}
 
     {{{js_easygrid}}}
     {{{js_app}}}
