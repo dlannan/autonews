@@ -15,10 +15,29 @@
   <body>
 
     <main>
+        <div class="container">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div role="separator" class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a>
+                    </div>            
+                </div>
+                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">Button</button>
+                    <button class="btn btn-outline-secondary" type="button">Button</button>
+                </div>
+            </div>        
+        </div>        
 
-      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
 
-        <div class="col-md-12">
+            <div class="col-md-12">
 
             <!-- <a style="margin-bottom:10px; z-index:9999; position:relative;" id="randomtiles" class="btn btn-md btn-outline-dark">Random Height</a>
             <a style="margin-bottom:10px; z-index:9999; position:relative;" id="fixedheight" class="btn btn-md btn-outline-dark">Fixed Height</a>
@@ -28,14 +47,17 @@
             <a style="margin-bottom:10px; z-index:9999; position:relative;" id="imagetiles" class="btn btn-md btn-outline-dark">Images</a>   -->
     
 
-            <!-- Easy Grid -->
-            <div id="grid" class="easygrid_bvgrid" style=" width:100%; margin-top:25px;"></div>
+                <!-- Easy Grid -->
+                <div id="grid" class="easygrid_bvgrid" style=" width:100%; margin-top:25px;"></div>
 
+            </div>
         </div>
-      </div>
 
 
     </main> 
+    <!-- Bootstrap core JS -->
+    {{{js_boostrap}}}
+
     {{{js_easygrid}}}
     {{{js_app}}}
   </body>
