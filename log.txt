@@ -6,6 +6,3 @@ INFO:LIVEUPDATE: Could not find base .arci/.arcd. Liveupdate disabled
 INFO:ENGINE: Initialised sound device 'default'
 INFO:DLIB: SSDP: Started on address 172.25.48.1
 INFO:DLIB: SSDP: Started on address 192.168.50.151
-DEBUG:SCRIPT: Search: uk%20news
-DEBUG:SCRIPT: Search: astronomy
-DEBUG:SCRIPT: Search: 

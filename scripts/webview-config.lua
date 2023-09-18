@@ -33,12 +33,12 @@ VISITOR_INFO1_LIVE=56vzBnuVFPc; PREF=tz=Australia.Adelaide&f6=40000000; HSID=Aac
 
 local headers = {
 	["User-Agent"] = "Mozilla/5.0 (MSIE; Windows 10)",
-	["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application",
+	-- ["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application",
 	-- ["Accept-Encoding"] = "gzip, deflate, br",
 	-- ["Accept-Languages"] = "en-US,en;q=0.9",
 	-- ["Cache-Controls"] = "max-age=0",
 	-- ["Upgrade-Insecure-Requests"] = 1,
-	["Cookie"] = cookie,
+	-- ["Cookie"] = cookie,
 	-- ["X-YouTube-Client-Name"] = "3",
 	-- ["X-YouTube-Client-Version"] = "16.20",
 }   

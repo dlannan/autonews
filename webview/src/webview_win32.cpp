@@ -151,7 +151,6 @@ namespace dmWebView
 		lua_rawgeti( L, LUA_REGISTRYINDEX, data->event );
 		lua_pushstring(L, seq);
 		lua_pushstring(L, req);
-		printf("Sequence: %s    Request: %s\n", seq, req);
 		if ( 0 != lua_pcall( L, 2, 0, 0 ) ) {
 			printf("Failed to call the callback!\n %s\n", lua_tostring(L, -1));
 			return;

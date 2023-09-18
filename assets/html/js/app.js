@@ -3,7 +3,6 @@ var interval, settimeout, demo1, demo_filtering;
 function process_url_embed(url) {
 
     url = url.replace("https://youtu.be/","https://www.youtube.com/embed/");
-    console.log(url)
     url = url.replace("https://www.youtube.com/watch?v=","https://www.youtube.com/embed/");
     console.log(url)
     return url;
@@ -41,23 +40,24 @@ function render_items() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-      demo1 = new EasyGrid({
-          selector: "#grid",
-          dimensions: {
+    demo1 = new EasyGrid({
+        selector: "#grid",
+        dimensions: {
             width: "150",
             height: "random",
             margin: "15",
             minHeight: "100",
             maxHeight: "300"
-          },
-          animations: {
+        },
+        animations: {
             fadeInSpeed: "500"
-          },
-          style: {
+        },
+        style: {
             background: "random",
             borderRadius: "5"
-          }
-      });
+        }
+    });
+
     render_items();
 
     $('#search-google').click(function () { 
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
         search_google(query);
     });
 
-    $('#search-text').keypress(function(event){
+    $('#search-text').on("keyup", function(event){
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if(keycode == '13'){
             console.log("[Search] " + $('#search-text').val());

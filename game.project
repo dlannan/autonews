@@ -4,7 +4,7 @@ version = 0.1
 dependencies = 
 write_log = 1
 custom_resources = /custom_resources/,/assets/
-bundle_resources = /bundle_resrouces
+bundle_resources = /bundle_resrouces /assets/html
 
 [bootstrap]
 main_collection = /main/main.collectionc
