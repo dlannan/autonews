@@ -36,6 +36,15 @@ Developed by: Bruno Vieira
 .video-player embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 p {
     font-weight: bold;
+}
+
+#search-type .btn {
+    background-color: lightslategray;
+	color: white;
+}
+
+#search-type .btn.active {
+    background-color: midnightblue;
 }</style>
 
     <!-- Bootstrap core CSS -->
@@ -54,12 +63,26 @@ p {
     <main>
         <div class="container">
             <div class="input-group">
-                <button id="history-toggle" class="btn btn-outline-secondary" type="button">
-                <a class="item" href="#"><i class="fas fa-book-open"></i></a>
-                </button>
+
+                <div id="search-type" class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary active">
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked>	
+                        <i class="fab fa-github"></i>
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="option2" autocomplete="off">
+                        <i class="fab fa-google"></i>
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="option3" autocomplete="off">
+                        <i class="fab fa-youtube"></i>
+                    </label>
+                </div>
 
                 <div class="input-group-prepend">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options</button>
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-tools"></i>
+                    </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#">Search Words</a>
                         <a class="dropdown-item" href="#">Search Channel Name</a>
@@ -68,10 +91,13 @@ p {
                         <a class="dropdown-item" href="#">Advanced Options</a>
                     </div>            
                 </div>
+
                 <input id="search-text" type="text" class="form-control" placeholder="Search for..." aria-label="Search criteria" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <button id="search-google" class="btn btn-outline-secondary" type="button">Search</button>
-                    <button class="btn btn-outline-secondary" type="button">Button</button>
+                    <button id="history-toggle" class="btn btn-outline-secondary" type="button">
+                        <a class="item" href="#"><i class="fas fa-book-open"></i></a>
+                    </button>
                 </div>
             </div>        
         </div>        
@@ -746,6 +772,56 @@ function render_items() {
     });
 
     // Append Items
+        indata = '<a href="https://www.youtube.com/skynews class="btn btn-primary">Sky News - YouTube</a>';
+        data = process_url_embed(indata);
+        demo1.AddItem({
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Sky News - YouTube</p></div></div>'
+        });
+        indata = '<a href="https://www.youtube.com/baresfuerrares class="btn btn-primary">Bares für Rares - YouTube</a>';
+        data = process_url_embed(indata);
+        demo1.AddItem({
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Bares für Rares - YouTube</p></div></div>'
+        });
+        indata = '<a href="https://www.youtube.com/SharkTankGlobal class="btn btn-primary">Shark Tank Global - YouTube</a>';
+        data = process_url_embed(indata);
+        demo1.AddItem({
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Shark Tank Global - YouTube</p></div></div>'
+        });
+        indata = '<a href="https://www.youtube.com/abscbnentertainment class="btn btn-primary">ABS-CBN Entertainment - YouTube</a>';
+        data = process_url_embed(indata);
+        demo1.AddItem({
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">ABS-CBN Entertainment - YouTube</p></div></div>'
+        });
+        indata = '<a href="https://www.youtube.com/GMA class="btn btn-primary">GMA - Good Morning America - YouTube</a>';
+        data = process_url_embed(indata);
+        demo1.AddItem({
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">GMA - Good Morning America - YouTube</p></div></div>'
+        });
+        indata = '<a href="https://www.youtube.com/bloomberght class="btn btn-primary">BloombergHT - YouTube</a>';
+        data = process_url_embed(indata);
+        demo1.AddItem({
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">BloombergHT - YouTube</p></div></div>'
+        });
+        indata = '<a href="https://www.youtube.com/gbhnews class="btn btn-primary">GBH News - YouTube</a>';
+        data = process_url_embed(indata);
+        demo1.AddItem({
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">GBH News - YouTube</p></div></div>'
+        });
+        indata = '<a href="https://www.youtube.com/seoullive class="btn btn-primary">서울시 · Seoul - YouTube</a>';
+        data = process_url_embed(indata);
+        demo1.AddItem({
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">서울시 · Seoul - YouTube</p></div></div>'
+        });
+        indata = '<a href="https://www.youtube.com/UNITEDNATIONS class="btn btn-primary">United Nations - YouTube</a>';
+        data = process_url_embed(indata);
+        demo1.AddItem({
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">United Nations - YouTube</p></div></div>'
+        });
+        indata = '<a href="https://www.youtube.com/talktv class="btn btn-primary">TalkTV - YouTube</a>';
+        data = process_url_embed(indata);
+        demo1.AddItem({
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">TalkTV - YouTube</p></div></div>'
+        });
 }
 
 document.addEventListener("DOMContentLoaded", function() {

@@ -27,3 +27,12 @@ Developed by: Bruno Vieira
 p {
     font-weight: bold;
 }
+
+#search-type .btn {
+    background-color: lightslategray;
+	color: white;
+}
+
+#search-type .btn.active {
+    background-color: midnightblue;
+}

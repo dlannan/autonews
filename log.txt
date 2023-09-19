@@ -5,4 +5,10 @@ INFO:WEBVIEWEXTERNAL: Running in the editor. Will attempt to load libraries from
 INFO:LIVEUPDATE: Could not find base .arci/.arcd. Liveupdate disabled
 INFO:ENGINE: Initialised sound device 'default'
 INFO:DLIB: SSDP: Started on address 172.25.48.1
+INFO:DLIB: SSDP: Started on address 192.168.32.0
 INFO:DLIB: SSDP: Started on address 192.168.50.151
+DEBUG:SCRIPT: [Webview] Search: history
+DEBUG:SCRIPT: [Webview] Search: computer
+DEBUG:SCRIPT: [Webview] Search: nokia%20n900
+DEBUG:SCRIPT: [Webview] Search: nokia%20n900
+DEBUG:SCRIPT: [Webview] Search: 
