@@ -63,7 +63,8 @@ document.addEventListener("DOMContentLoaded", function() {
     $('#search-google').click(function () { 
         console.log("[Search] " + $('#search-text').val());
         var query = $('#search-text').val();
-        search_google(query);
+        $('#search-spinner').show();
+        search_google(encodeURIComponent(query));
     });
 
     $('#search-text').on("keyup", function(event){
@@ -71,9 +72,13 @@ document.addEventListener("DOMContentLoaded", function() {
         if(keycode == '13'){
             console.log("[Search] " + $('#search-text').val());
             var query = $('#search-text').val();
-            search_google(query);
+            $('#search-spinner').show();
+            search_google(encodeURIComponent(query));
         }
-    });    
+    }); 
+    
+    $('#search-text').val(decodeURIComponent("{{{search_request}}}"));
+    $('#search-spinner').hide();
 });
 
 /* FIXED HEIGHT */

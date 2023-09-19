@@ -36,8 +36,8 @@ local headers = {
 	-- ["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application",
 	["Accept-Encoding"] = "gzip",
 	-- ["Accept-Languages"] = "en-US,en;q=0.9",
-	-- ["Cache-Controls"] = "max-age=0",
-	-- ["Upgrade-Insecure-Requests"] = 1,
+	["Cache-Controls"] = "max-age=0",
+	["Upgrade-Insecure-Requests"] = 1,
 	-- ["Cookie"] = cookie,
 	-- ["X-YouTube-Client-Name"] = "3",
 	-- ["X-YouTube-Client-Version"] = "16.20",
@@ -49,9 +49,17 @@ local options = {
 
 return {
 	vid_thumb = vid_thumb,
+
 	num_fetch = num_fetch,
+	num_start = 0,
+	
 	agents = agents,
 	cookie = cookie,
 	headers = headers,
 	options = options,
+
+	personal_results = "0",
+	recent_pages = "y",		-- d = daily, w = weekly, m = monthly, y = yearly
+
+	search_mode = "youtube",
 }

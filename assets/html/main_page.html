@@ -20,23 +20,23 @@
     <main>
         <div class="container">
             <div class="input-group">
-
                 <div id="search-type" class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-secondary active">
-                        <input type="radio" name="options" id="option1" autocomplete="off" checked>	
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="option1" autocomplete="off">	
                         <i class="fab fa-github"></i>
                     </label>
                     <label class="btn btn-secondary">
                         <input type="radio" name="options" id="option2" autocomplete="off">
                         <i class="fab fa-google"></i>
                     </label>
-                    <label class="btn btn-secondary">
-                        <input type="radio" name="options" id="option3" autocomplete="off">
+                    <label class="btn btn-secondary active">
+                        <input type="radio" name="options" id="option3" autocomplete="off" checked>
                         <i class="fab fa-youtube"></i>
                     </label>
                 </div>
-
+                                
                 <div class="input-group-prepend">
+
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-tools"></i>
                     </button>
@@ -51,7 +51,10 @@
 
                 <input id="search-text" type="text" class="form-control" placeholder="Search for..." aria-label="Search criteria" aria-describedby="basic-addon2">
                 <div class="input-group-append">
-                    <button id="search-google" class="btn btn-outline-secondary" type="button">Search</button>
+                    <button id="search-google" class="btn btn-outline-secondary" type="button">
+                        Search
+                        <span id="search-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    </button>
                     <button id="history-toggle" class="btn btn-outline-secondary" type="button">
                         <a class="item" href="#"><i class="fas fa-book-open"></i></a>
                     </button>
@@ -59,7 +62,7 @@
             </div>        
         </div>        
 
-        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        <div class="row-cols-1 row-cols-md-3 mb-3 text-center">
 
             <div class="col-md-12">
 
