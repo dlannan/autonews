@@ -36,3 +36,17 @@ p {
 #search-type .btn.active {
     background-color: midnightblue;
 }
+
+#side-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30em;
+    height: 100%;
+    float: right;
+    background: lightslategray;
+    color: black;
+    z-index: 5;
+	overflow-y: auto;
+	overflow-x: hidden;
+}

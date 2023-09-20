@@ -79,6 +79,11 @@ document.addEventListener("DOMContentLoaded", function() {
     
     $('#search-text').val(decodeURIComponent("{{{search_request}}}"));
     $('#search-spinner').hide();
+
+    $('#side-panel').hide();
+    $('#history-toggle').on("click", function(event) {
+        $('#side-panel').toggle();
+    })
 });
 
 /* FIXED HEIGHT */

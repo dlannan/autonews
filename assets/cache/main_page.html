@@ -45,6 +45,20 @@ p {
 
 #search-type .btn.active {
     background-color: midnightblue;
+}
+
+#side-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30em;
+    height: 100%;
+    float: right;
+    background: lightslategray;
+    color: black;
+    z-index: 5;
+	overflow-y: auto;
+	overflow-x: hidden;
 }</style>
 
     <!-- Bootstrap core CSS -->
@@ -105,21 +119,15 @@ p {
             </div>        
         </div>        
 
-        <div class="row-cols-1 row-cols-md-3 mb-3 text-center">
-
-            <div class="col-md-12">
-
-            <!-- <a style="margin-bottom:10px; z-index:9999; position:relative;" id="randomtiles" class="btn btn-md btn-outline-dark">Random Height</a>
-            <a style="margin-bottom:10px; z-index:9999; position:relative;" id="fixedheight" class="btn btn-md btn-outline-dark">Fixed Height</a>
-            <a style="margin-bottom:10px; z-index:9999; position:relative;" id="boostrapcards" class="btn btn-md btn-outline-dark">Bootstrap Cards</a>
-            <a style="margin-bottom:10px; z-index:9999; position:relative;" id="festuredposts" class="btn btn-md btn-outline-dark">Bootstrap Posts</a> 
-            <a href="javascript:void();" style="margin-bottom:10px; z-index:9999; position:relative;" id="moviecards" class="btn btn-md btn-outline-dark">Movie List</a>
-            <a style="margin-bottom:10px; z-index:9999; position:relative;" id="imagetiles" class="btn btn-md btn-outline-dark">Images</a>   -->
-    
+        <div class="simple-row">
+            <div class="text-center">
 
                 <!-- Easy Grid -->
-                <div id="grid" class="easygrid_bvgrid" style=" width:100%; margin-top:25px;"></div>
+                <div id="grid" class="easygrid_bvgrid" style="width:100%;"></div>
 
+            </div>
+            <div id="side-panel" class=""> 
+                Panel
             </div>
         </div>
 
@@ -775,55 +783,55 @@ function render_items() {
     });
 
     // Append Items
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=A2vzfQ5zO0w" title="The 20 Greatest Commodore Amiga Games Of All-Time - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=X740HLBmmrY" title="New Zealand rocked by 6.2 magnitude earthquake | 9 News Australia" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
         data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">The 20 Greatest Commodore Amiga Games Of All-Time - YouTube</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">New Zealand rocked by 6.2 magnitude earthquake | 9 News Australia</p></div></div>'
         });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=9bxbVravi7k" title="The 10 Goriest Amiga Games Ever Made! - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=g_KusfzBdp8" title="Sky News at Ten: PM Rishi Sunak to water down net zero pledges" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
         data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">The 10 Goriest Amiga Games Ever Made! - YouTube</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Sky News at Ten: PM Rishi Sunak to water down net zero pledges</p></div></div>'
         });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=KK9zg2Vh7AI" title="Awesome New Amiga Physical Retro Games in 2022 | MVG" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=3u6MA9KgjjA" title="Whopping increases Aussies are forking out for flights - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
         data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Awesome New Amiga Physical Retro Games in 2022 | MVG</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Whopping increases Aussies are forking out for flights - YouTube</p></div></div>'
         });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=xQ4jhp_TM6Y" title="NEW AMIGA GAMES FOR SPRING 2023! Lets play some NEW Titles!" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=kvOxSZmrXyU" title="Nightly News Full Broadcast - Sept. 19 - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
         data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">NEW AMIGA GAMES FOR SPRING 2023! Lets play some NEW Titles!</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Nightly News Full Broadcast - Sept. 19 - YouTube</p></div></div>'
         });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=S5U3360iqac" title="I need to follow my own advice with this Amiga 500 - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=EE4eYiYB6bU" title="7 NEWS Australia Early Edition | Sep 20, 2023 | Full Episode" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
         data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">I need to follow my own advice with this Amiga 500 - YouTube</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">7 NEWS Australia Early Edition | Sep 20, 2023 | Full Episode</p></div></div>'
         });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=kJFt03a1PsE" title="SPECTACULAR Soft Synths of the Commodore Amiga - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=M_bqJ1_6074" title="Palm Island reflects on dark history ahead of Voice referendum" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
         data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">SPECTACULAR Soft Synths of the Commodore Amiga - YouTube</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Palm Island reflects on dark history ahead of Voice referendum</p></div></div>'
         });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=Lh1seWwM-JA" title="A New Amiga Show in 2023? Kickstart 01 | Retro Road Trip - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=E310IdsV-2o" title="RBA board leaves the cash rate on hold | Finance Report | ABC News" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
         data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">A New Amiga Show in 2023? Kickstart 01 | Retro Road Trip - YouTube</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">RBA board leaves the cash rate on hold | Finance Report | ABC News</p></div></div>'
         });
-        indata = '<a href="https://m.youtube.com/watch?v=nEpFGr6FrN4 class="btn btn-primary">11 NEW AMIGA Games in 2023 that you MUST Check Out! | Part 6</a>';
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=X_svA3CCiw8" title="Catastrophic fire danger as heatwave grips NSW | 9 News Australia" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
         data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">11 NEW AMIGA Games in 2023 that you MUST Check Out! | Part 6</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Catastrophic fire danger as heatwave grips NSW | 9 News Australia</p></div></div>'
         });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=alV26f_B8ck" title="NEW AMIGA CORE with HDD support PUBLIC RELEASE - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=IWZjDDs62fE" title="Protesters target No campaign event in Adelaide as PM ... - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
         data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">NEW AMIGA CORE with HDD support PUBLIC RELEASE - YouTube</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Protesters target No campaign event in Adelaide as PM ... - YouTube</p></div></div>'
         });
-        indata = '<a href="https://m.youtube.com/watch?v=MPI6ezgiAHY class="btn btn-primary">10 Amazing Commodore Amiga 500 Facts - YouTube</a>';
+        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=Hzk2pEO0xk8" title="ABC News - Bureau of Meteorology finally declares El Niño - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
         data = process_url_embed(indata);
         demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">10 Amazing Commodore Amiga 500 Facts - YouTube</p></div></div>'
+        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">ABC News - Bureau of Meteorology finally declares El Niño - YouTube</p></div></div>'
         });
 }
 
@@ -865,8 +873,13 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }); 
     
-    $('#search-text').val(decodeURIComponent("Amiga"));
+    $('#search-text').val(decodeURIComponent("news"));
     $('#search-spinner').hide();
+
+    $('#side-panel').hide();
+    $('#history-toggle').on("click", function(event) {
+        $('#side-panel').toggle();
+    })
 });
 
 /* FIXED HEIGHT */
