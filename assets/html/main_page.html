@@ -18,35 +18,66 @@
   <body>
 
     <main>
+        <div class="wrapper">
+            <nav id="sidebar" class="active"> 
+                <div class="sidebar-header">
+                    <b>History</b>
+                </div>
+                <ul class="list-unstyled components">
+                    <li class="active">
+                        <a href="#recent" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Recent</a>
+                        <ul class="collapse list-unstyled" id="recent">
+                            <li>
+                                <a href="https://www.google.com">www.google.com</a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com">www.youtube.com</a>
+                            </li>
+                            <li>
+                                <a href="https://www.github.com">www.github.com</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#settings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Settings</a>
+                        <ul class="collapse list-unstyled" id="settings">
+                            <li>
+                                <a href="#">Profile</a>
+                            </li>
+                            <li>
+                                <a href="#">Bookmarks</a>
+                            </li>
+                            <li>
+                                <a href="#">Search</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        <div id="content">
+
         <div class="container">
             <div class="input-group">
-                <div id="search-type" class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-secondary">
-                        <input type="radio" name="options" id="option1" autocomplete="off">	
-                        <i class="fab fa-github"></i>
-                    </label>
-                    <label class="btn btn-secondary">
-                        <input type="radio" name="options" id="option2" autocomplete="off">
-                        <i class="fab fa-google"></i>
-                    </label>
-                    <label class="btn btn-secondary active">
-                        <input type="radio" name="options" id="option3" autocomplete="off" checked>
-                        <i class="fab fa-youtube"></i>
-                    </label>
-                </div>
+
+                <button id="history-toggle" class="btn btn-outline-secondary" type="button">
+                    <a class="item" href="#"><i class="fas fa-book-open"></i></a>
+                </button>
                                 
                 <div class="input-group-prepend">
-
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-tools"></i>
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Search Words</a>
-                        <a class="dropdown-item" href="#">Search Channel Name</a>
-                        <a class="dropdown-item" href="#">Search Subscriptions</a>
-                        <div role="separator" class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Advanced Options</a>
-                    </div>            
+                    <div id="search-type" class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="options" id="option1" autocomplete="off">	
+                            <i class="fab fa-github"></i>
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="options" id="option2" autocomplete="off">
+                            <i class="fab fa-google"></i>
+                        </label>
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="options" id="option3" autocomplete="off" checked>
+                            <i class="fab fa-youtube"></i>
+                        </label>
+                    </div>          
                 </div>
 
                 <input id="search-text" type="text" class="form-control" placeholder="Search for..." aria-label="Search criteria" aria-describedby="basic-addon2">
@@ -55,25 +86,18 @@
                         Search
                         <span id="search-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     </button>
-                    <button id="history-toggle" class="btn btn-outline-secondary" type="button">
-                        <a class="item" href="#"><i class="fas fa-book-open"></i></a>
-                    </button>
                 </div>
             </div>        
         </div>        
 
-        <div class="simple-row">
             <div class="text-center">
 
                 <!-- Easy Grid -->
                 <div id="grid" class="easygrid_bvgrid" style="width:100%;"></div>
 
             </div>
-            <div id="side-panel" class=""> 
-                Panel
-            </div>
         </div>
-
+    </div>
 
     </main> 
     <!-- Bootstrap core JS -->

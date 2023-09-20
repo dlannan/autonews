@@ -19,6 +19,36 @@ namespace dmWebView
 		CALLBACK_RESULT_EVAL_ERROR = -2,
 		CALLBACK_RESULT_URL_LOADING = -3,
 	};
+
+
+	static int GetDesktopSize(lua_State *L)
+	{
+		int width  = GetSystemMetrics(SM_CXSCREEN);
+		int height = GetSystemMetrics(SM_CYSCREEN);
+		lua_pushnumber(L, width);
+		lua_pushnumber(L, height);
+		return 2;
+	}
+
+	static int SetDesktopPosition(lua_State* L)
+	{
+		const int x = luaL_checknumber(L, 1);
+		const int y = luaL_checknumber(L, 2);
+		const int w = luaL_checknumber(L, 3);
+		const int h = luaL_checknumber(L, 4);
+		HWND hwnd = dmGraphics::GetNativeWindowsHWND();
+
+		SetWindowPos(hwnd, HWND_TOP, x, y, w, h, 0);
+		return 0;
+	}
+
+	static int SetDesktopMode(lua_State* L)
+	{
+		const int x = luaL_checknumber(L, 1);
+		HWND hwnd = dmGraphics::GetNativeWindowsHWND();
+		ShowWindow(hwnd, SW_MAXIMIZE);
+		return 0;
+	}
 	
 	/** Creates a web view
 	@param callback callback to use for requests
@@ -27,7 +57,6 @@ namespace dmWebView
 	static int Create(lua_State* L)
 	{
 		int debug = luaL_checknumber(L,1);
-
 		HWND hwnd = dmGraphics::GetNativeWindowsHWND();
 		webview_t wvobj = (webview_t)sym_webview_create_ex(debug, &hwnd, WS_OVERLAPPED, WS_EX_LAYERED);
 		lua_pushlightuserdata(L, wvobj);
@@ -135,20 +164,19 @@ namespace dmWebView
 	}
 
 	// This handles the bind call from JS - seq, req and arg are populate from JS
-	typedef void (* BindFunction)( const char *seq, const char *req, void *arg);
-
-	typedef struct _FuncData { 
+	typedef struct _callerInfo_t { 
 		int event;
-		BindFunction func; 
-	} funcData_t;
+		lua_State *lstate; 
+		std::string	name;
+	} callerInfo_t;
 		
-	static std::map<std::string, funcData_t *> 	registeredFuncs;
+	static std::map<std::string, callerInfo_t *> 	registeredFuncs;
 	
-	static void BindGoogleSearchCaller( const char *seq, const char *req, void *arg)
+	static void BindFunctionCaller( const char *seq, const char *req, void *arg)
 	{
-		lua_State *L = (lua_State *)arg;
-		funcData_t *data = registeredFuncs["search_google"];
-		lua_rawgeti( L, LUA_REGISTRYINDEX, data->event );
+		callerInfo_t *cinfo = (callerInfo_t *)arg;
+		lua_State *L = (lua_State *)cinfo->lstate;
+		lua_rawgeti( L, LUA_REGISTRYINDEX, cinfo->event );
 		lua_pushstring(L, seq);
 		lua_pushstring(L, req);
 		if ( 0 != lua_pcall( L, 2, 0, 0 ) ) {
@@ -156,12 +184,6 @@ namespace dmWebView
 			return;
 		}
 		//data->event = luaL_ref(L, LUA_REGISTRYINDEX);
-	}
-
-	static void InitBindFunctions()
-	{
-		printf("[Webview] Binding function to: search_google\n"); 
-		registeredFuncs.insert({ "search_google", new funcData_t{ 0,  &BindGoogleSearchCaller } });
 	}
 	
 	static int Bind(lua_State* L)
@@ -173,10 +195,12 @@ namespace dmWebView
 		}
 		int event = luaL_ref(L, LUA_REGISTRYINDEX);
 		auto iter = registeredFuncs.find(name);
-		if (iter != registeredFuncs.end()) 
+		if (iter == registeredFuncs.end()) 
 		{
-			iter->second->event = event;
-			sym_webview_bind(wvobj, name, iter->second->func, (void *)L);
+			callerInfo_t *cinfo = new callerInfo_t{ event, L, name };
+			registeredFuncs.insert({std::string(name), cinfo});
+			
+			sym_webview_bind(wvobj, name, BindFunctionCaller, (void *)cinfo);
 		} else { 
 			printf("[Webview] Function cant be bound to %s\n", name); 
 		}
@@ -208,13 +232,14 @@ namespace dmWebView
 		{"poll", Poll},
 		{"bind", Bind},
 		{"result", Result},
+		// {"get_desktop_size", GetDesktopSize},
+		// {"set_desktop_pos", SetDesktopPosition},
+		{"set_desktop_mode", SetDesktopMode},
 		{0, 0}
 	};
 
 	static void LuaInit(lua_State* L)
 	{
-		InitBindFunctions();
-		
 		int top = lua_gettop(L);
 		luaL_register(L, "webview", WebView_methods);
 

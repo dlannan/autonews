@@ -47,18 +47,227 @@ p {
     background-color: midnightblue;
 }
 
-#side-panel {
+/* #side-panel {
     position: absolute;
     top: 0;
     right: 0;
     width: 30em;
     height: 100%;
     float: right;
-    background: lightslategray;
+    background: rgba(119, 136, 153, 0.9);
     color: black;
     z-index: 5;
 	overflow-y: auto;
 	overflow-x: hidden;
+} */
+
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.navbar {
+    padding: 15px 10px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+    perspective: 1500px;
+}
+
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: lightslategray;
+    color: black;
+    transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
+    transform-origin: bottom left;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+    transform: rotateY(100deg);
+}
+
+#sidebar .sidebar-header {
+    padding-top: 15px;
+	padding-left: 10px;
+    background: lightslategray;
+}
+
+#sidebar ul.components {
+    padding: 5px 0;
+    border-bottom: 1px solid lightslategray;
+}
+
+#sidebar ul p {
+    color:black;
+    padding: 10px 5px;
+}
+
+#sidebar ul li a {
+    padding: 5px 5px 5px 10px;
+    display: block;
+}
+#sidebar ul li a:hover {
+    color: lightslategray;
+    background: black;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: black;
+    background: lightslategray;
+}
+
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: lightgray;
+}
+
+ul li a {
+    color: midnightblue;
+}
+
+ul.CTAs {
+    padding: 20px;
+}
+
+ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+a.download {
+    background: black;
+    color: lightslategray;
+}
+
+a.article, a.article:hover {
+    background: lightslategray !important;
+    color: black !important;
+}
+
+
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+#sidebarCollapse {
+    width: 40px;
+    height: 40px;
+    background: #f5f5f5;
+    cursor: pointer;
+}
+
+#sidebarCollapse span {
+    width: 80%;
+    height: 2px;
+    margin: 0 auto;
+    display: block;
+    background: #555;
+    transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
+    transition-delay: 0.2s;
+}
+
+#sidebarCollapse span:first-of-type {
+    transform: rotate(45deg) translate(2px, 2px);
+}
+#sidebarCollapse span:nth-of-type(2) {
+    opacity: 0;
+}
+#sidebarCollapse span:last-of-type {
+    transform: rotate(-45deg) translate(1px, -1px);
+}
+
+
+#sidebarCollapse.active span {
+    transform: none;
+    opacity: 1;
+    margin: 5px auto;
+}
+
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+        transform: rotateY(90deg);
+    }
+    #sidebar.active {
+        margin-left: 0;
+        transform: none;
+    }
+    #sidebarCollapse span:first-of-type,
+    #sidebarCollapse span:nth-of-type(2),
+    #sidebarCollapse span:last-of-type {
+        transform: none;
+        opacity: 1;
+        margin: 5px auto;
+    }
+    #sidebarCollapse.active span {
+        margin: 0 auto;
+    }
+    #sidebarCollapse.active span:first-of-type {
+        transform: rotate(45deg) translate(2px, 2px);
+    }
+    #sidebarCollapse.active span:nth-of-type(2) {
+        opacity: 0;
+    }
+    #sidebarCollapse.active span:last-of-type {
+        transform: rotate(-45deg) translate(1px, -1px);
+    }
+
 }</style>
 
     <!-- Bootstrap core CSS -->
@@ -75,35 +284,66 @@ p {
   <body>
 
     <main>
+        <div class="wrapper">
+            <nav id="sidebar" class="active"> 
+                <div class="sidebar-header">
+                    <b>History</b>
+                </div>
+                <ul class="list-unstyled components">
+                    <li class="active">
+                        <a href="#recent" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Recent</a>
+                        <ul class="collapse list-unstyled" id="recent">
+                            <li>
+                                <a href="https://www.google.com">www.google.com</a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com">www.youtube.com</a>
+                            </li>
+                            <li>
+                                <a href="https://www.github.com">www.github.com</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#settings" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Settings</a>
+                        <ul class="collapse list-unstyled" id="settings">
+                            <li>
+                                <a href="#">Profile</a>
+                            </li>
+                            <li>
+                                <a href="#">Bookmarks</a>
+                            </li>
+                            <li>
+                                <a href="#">Search</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        <div id="content">
+
         <div class="container">
             <div class="input-group">
-                <div id="search-type" class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-secondary">
-                        <input type="radio" name="options" id="option1" autocomplete="off">	
-                        <i class="fab fa-github"></i>
-                    </label>
-                    <label class="btn btn-secondary">
-                        <input type="radio" name="options" id="option2" autocomplete="off">
-                        <i class="fab fa-google"></i>
-                    </label>
-                    <label class="btn btn-secondary active">
-                        <input type="radio" name="options" id="option3" autocomplete="off" checked>
-                        <i class="fab fa-youtube"></i>
-                    </label>
-                </div>
+
+                <button id="history-toggle" class="btn btn-outline-secondary" type="button">
+                    <a class="item" href="#"><i class="fas fa-book-open"></i></a>
+                </button>
                                 
                 <div class="input-group-prepend">
-
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-tools"></i>
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Search Words</a>
-                        <a class="dropdown-item" href="#">Search Channel Name</a>
-                        <a class="dropdown-item" href="#">Search Subscriptions</a>
-                        <div role="separator" class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Advanced Options</a>
-                    </div>            
+                    <div id="search-type" class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="options" id="option1" autocomplete="off">	
+                            <i class="fab fa-github"></i>
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="options" id="option2" autocomplete="off">
+                            <i class="fab fa-google"></i>
+                        </label>
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="options" id="option3" autocomplete="off" checked>
+                            <i class="fab fa-youtube"></i>
+                        </label>
+                    </div>          
                 </div>
 
                 <input id="search-text" type="text" class="form-control" placeholder="Search for..." aria-label="Search criteria" aria-describedby="basic-addon2">
@@ -112,25 +352,18 @@ p {
                         Search
                         <span id="search-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     </button>
-                    <button id="history-toggle" class="btn btn-outline-secondary" type="button">
-                        <a class="item" href="#"><i class="fas fa-book-open"></i></a>
-                    </button>
                 </div>
             </div>        
         </div>        
 
-        <div class="simple-row">
             <div class="text-center">
 
                 <!-- Easy Grid -->
                 <div id="grid" class="easygrid_bvgrid" style="width:100%;"></div>
 
             </div>
-            <div id="side-panel" class=""> 
-                Panel
-            </div>
         </div>
-
+    </div>
 
     </main> 
     <!-- Bootstrap core JS -->
@@ -782,57 +1015,24 @@ function render_items() {
             }
     });
 
-    // Append Items
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=X740HLBmmrY" title="New Zealand rocked by 6.2 magnitude earthquake | 9 News Australia" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
-        data = process_url_embed(indata);
-        demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">New Zealand rocked by 6.2 magnitude earthquake | 9 News Australia</p></div></div>'
+    page_load_complete();
+}
+
+var paging_data = [];
+function PagingCallback() {
+
+    console.log("[Paging Callback]");
+    console.log(paging_data);
+
+    if( paging_data.length > 0 ) {
+        paging_data.forEach(element => {
+            let data = process_url_embed(element.data);
+            let text = element.text;
+            demo1.AddItem({
+                items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">'+text+'</p></div></div>'
+            });            
         });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=g_KusfzBdp8" title="Sky News at Ten: PM Rishi Sunak to water down net zero pledges" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
-        data = process_url_embed(indata);
-        demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Sky News at Ten: PM Rishi Sunak to water down net zero pledges</p></div></div>'
-        });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=3u6MA9KgjjA" title="Whopping increases Aussies are forking out for flights - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
-        data = process_url_embed(indata);
-        demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Whopping increases Aussies are forking out for flights - YouTube</p></div></div>'
-        });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=kvOxSZmrXyU" title="Nightly News Full Broadcast - Sept. 19 - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
-        data = process_url_embed(indata);
-        demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Nightly News Full Broadcast - Sept. 19 - YouTube</p></div></div>'
-        });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=EE4eYiYB6bU" title="7 NEWS Australia Early Edition | Sep 20, 2023 | Full Episode" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
-        data = process_url_embed(indata);
-        demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">7 NEWS Australia Early Edition | Sep 20, 2023 | Full Episode</p></div></div>'
-        });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=M_bqJ1_6074" title="Palm Island reflects on dark history ahead of Voice referendum" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
-        data = process_url_embed(indata);
-        demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Palm Island reflects on dark history ahead of Voice referendum</p></div></div>'
-        });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=E310IdsV-2o" title="RBA board leaves the cash rate on hold | Finance Report | ABC News" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
-        data = process_url_embed(indata);
-        demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">RBA board leaves the cash rate on hold | Finance Report | ABC News</p></div></div>'
-        });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=X_svA3CCiw8" title="Catastrophic fire danger as heatwave grips NSW | 9 News Australia" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
-        data = process_url_embed(indata);
-        demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Catastrophic fire danger as heatwave grips NSW | 9 News Australia</p></div></div>'
-        });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=IWZjDDs62fE" title="Protesters target No campaign event in Adelaide as PM ... - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
-        data = process_url_embed(indata);
-        demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">Protesters target No campaign event in Adelaide as PM ... - YouTube</p></div></div>'
-        });
-        indata = '<div class="video-player"><iframe width="455" height="256" id="iframe" src="https://www.youtube.com/watch?v=Hzk2pEO0xk8" title="ABC News - Bureau of Meteorology finally declares El Niño - YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>';
-        data = process_url_embed(indata);
-        demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">ABC News - Bureau of Meteorology finally declares El Niño - YouTube</p></div></div>'
-        });
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -876,10 +1076,14 @@ document.addEventListener("DOMContentLoaded", function() {
     $('#search-text').val(decodeURIComponent("news"));
     $('#search-spinner').hide();
 
-    $('#side-panel').hide();
-    $('#history-toggle').on("click", function(event) {
-        $('#side-panel').toggle();
-    })
+    //$('#side-panel').hide();
+
+    $('#history-toggle').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        $(this).toggleClass('active');
+    });       
+
+    get_pages(0, 10, "PagingCallback");
 });
 
 /* FIXED HEIGHT */

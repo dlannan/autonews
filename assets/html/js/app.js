@@ -29,14 +29,24 @@ function render_items() {
             }
     });
 
-    // Append Items
-    {{#rows}}
-        indata = '{{{data}}}';
-        data = process_url_embed(indata);
-        demo1.AddItem({
-        items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">{{{text}}}</p></div></div>'
+    page_load_complete();
+}
+
+var paging_data = [];
+function PagingCallback() {
+
+    console.log("[Paging Callback]");
+    console.log(paging_data);
+
+    if( paging_data.length > 0 ) {
+        paging_data.forEach(element => {
+            let data = process_url_embed(element.data);
+            let text = element.text;
+            demo1.AddItem({
+                items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">'+text+'</p></div></div>'
+            });            
         });
-    {{/rows}}
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -80,10 +90,14 @@ document.addEventListener("DOMContentLoaded", function() {
     $('#search-text').val(decodeURIComponent("{{{search_request}}}"));
     $('#search-spinner').hide();
 
-    $('#side-panel').hide();
-    $('#history-toggle').on("click", function(event) {
-        $('#side-panel').toggle();
-    })
+    //$('#side-panel').hide();
+
+    $('#history-toggle').on('click', function () {
+        $('#sidebar').toggleClass('active');
+        $(this).toggleClass('active');
+    });       
+
+    get_pages(0, 10, "PagingCallback");
 });
 
 /* FIXED HEIGHT */

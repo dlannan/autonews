@@ -1,5 +1,5 @@
 [project]
-title = defold-webview
+title = 22 search
 version = 0.1
 dependencies = 
 write_log = 1
@@ -36,8 +36,10 @@ infoplist = /Info.plist
 include_dirs = webview
 
 [render]
-clear_color_green = 0.0
-clear_color_blue = 0.0
+clear_color_green = 1.0
+clear_color_blue = 1.0
+clear_color_red = 1.0
+clear_color_alpha = 1.0
 
 [webview]
 lib_path = webview/res
