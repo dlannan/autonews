@@ -1,4 +1,12 @@
 var interval, settimeout, demo1, demo_filtering;
+var paging_start = 0;
+var paging_len = 4;
+
+(function($) {
+    $.fn.hasScrollBar = function() {
+        return this.get(0).scrollHeight > this.height();
+    }
+})(jQuery);
 
 function process_url_embed(url) {
 
@@ -9,47 +17,8 @@ function process_url_embed(url) {
 }
 
 
-function render_items() {
+function setup_easygrid() {
 
-    // Clear Previous Demo Cicle
-    clearInterval(interval);
-    clearInterval(settimeout);
-
-    demo1.Change({
-            dimensions: {
-            width: "300",
-            height: "auto",
-            margin: "10",
-            minHeight: "100", // if height is "random"
-            maxHeight: "300"  // if height is "random"
-            },
-            style: {
-            background: "random",
-            borderRadius: "5"
-            }
-    });
-
-    page_load_complete();
-}
-
-var paging_data = [];
-function PagingCallback() {
-
-    console.log("[Paging Callback]");
-    console.log(paging_data);
-
-    if( paging_data.length > 0 ) {
-        paging_data.forEach(element => {
-            let data = process_url_embed(element.data);
-            let text = element.text;
-            demo1.AddItem({
-                items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">'+text+'</p></div></div>'
-            });            
-        });
-    }
-}
-
-document.addEventListener("DOMContentLoaded", function() {
     demo1 = new EasyGrid({
         selector: "#grid",
         dimensions: {
@@ -68,7 +37,50 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    render_items();
+    // Clear Previous Demo Cicle
+    clearInterval(interval);
+    clearInterval(settimeout);
+
+    demo1.Change({
+            dimensions: {
+            width: "300",
+            height: "auto",
+            margin: "10",
+            minHeight: "100", // if height is "random"
+            maxHeight: "300"  // if height is "random"
+            },
+            style: {
+            background: "random",
+            borderRadius: "5"
+            }
+    });
+}
+
+var paging_data = [];
+function PagingCallback() {
+
+    console.log("[Paging Callback]");
+    if( paging_data.length > 0 ) {
+        paging_data.forEach(element => {
+            let data = process_url_embed(element.data);
+            let text = element.text;
+            demo1.AddItem({
+                items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">'+text+'</p></div></div>'
+            });            
+        });
+    }
+
+    if(paging_start < 10) {
+        paging_start += 4;
+        get_pages(paging_start, paging_len, "PagingCallback");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    paging_start = 0;
+    paging_len = 4;
+    setup_easygrid();
 
     $('#search-google').click(function () { 
         console.log("[Search] " + $('#search-text').val());
@@ -97,7 +109,8 @@ document.addEventListener("DOMContentLoaded", function() {
         $(this).toggleClass('active');
     });       
 
-    get_pages(0, 10, "PagingCallback");
+    get_pages(paging_start, paging_len, "PagingCallback");
+    page_load_complete();
 });
 
 /* FIXED HEIGHT */
