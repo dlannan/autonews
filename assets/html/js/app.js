@@ -19,6 +19,9 @@ function process_url_embed(url) {
 
 function setup_easygrid() {
 
+    paging_start = 0;
+    paging_len = 4;
+
     demo1 = new EasyGrid({
         selector: "#grid",
         dimensions: {
@@ -68,24 +71,27 @@ function PagingCallback() {
                 items: '<div class="card" style="color:black; width: 100%;"><div class="card-img-top">'+data+'</div><div class="card-body"><p class="card-text">'+text+'</p></div></div>'
             });            
         });
+        paging_data = [];
     }
 
     if(paging_start < 10) {
         paging_start += 4;
         get_pages(paging_start, paging_len, "PagingCallback");
+    } else {
+        $('#search-spinner').hide();
+        page_load_complete();
     }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    paging_start = 0;
-    paging_len = 4;
     setup_easygrid();
 
     $('#search-google').click(function () { 
         console.log("[Search] " + $('#search-text').val());
         var query = $('#search-text').val();
         $('#search-spinner').show();
+        setup_easygrid();
         search_google(encodeURIComponent(query));
     });
 
@@ -95,6 +101,7 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log("[Search] " + $('#search-text').val());
             var query = $('#search-text').val();
             $('#search-spinner').show();
+            setup_easygrid();
             search_google(encodeURIComponent(query));
         }
     }); 

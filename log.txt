@@ -7,11 +7,16 @@ INFO:ENGINE: Initialised sound device 'default'
 INFO:DLIB: SSDP: Started on address 172.25.48.1
 INFO:DLIB: SSDP: Started on address 192.168.50.151
 DEBUG:SCRIPT: [GET PAGES] 0   4    PagingCallback
-DEBUG:SCRIPT: [Webview] Search: news
-DEBUG:SCRIPT: [LOCATION] https://www.google.com/sorry/index?continue=https://www.google.com/search%3Fq%3Dnews%26start%3D0%26num%3D4%26as_sitesearch%3Dyoutube.com%26pws%3D0%26as_qdr%3Dy&q=EgR0_yZrGLzUxqgGIjDjJen2DRmsADW5LkN8wLn7pUsk9DavHG1-6a886OEuwiQzruG9lJQ-f-t3g-Dz7kMyAXJaAUM
+DEBUG:SCRIPT: [Webview] Search: us%20news
+DEBUG:SCRIPT: [GET PAGES] 4   4    PagingCallback
+DEBUG:SCRIPT: [GET PAGES] 8   4    PagingCallback
+DEBUG:SCRIPT: [GET PAGES] 12   4    PagingCallback
+DEBUG:SCRIPT: [Webview] Search: aus%20news
+DEBUG:SCRIPT: [Webview] Search: aus%20news
+DEBUG:SCRIPT: [LOCATION] https://www.google.com/sorry/index?continue=https://www.google.com/search%3Fq%3Daus%2520news%26start%3D12%26num%3D4%26as_sitesearch%3Dyoutube.com%26pws%3D0%26as_qdr%3Dy&q=EgR0_yZrGOTYyqgGIjB3IYyrqQIoZTxTXTHZWFzoDsJ0QdlnESdWrH2vZaHB4OvklmRdh6V6riN3ibF5cN8yAXJaAUM
 ERROR:SCRIPT: scripts/zzlib/zzlib.lua:59: invalid gzip header
 stack traceback:
   [C]:-1: in function error
   scripts/zzlib/zzlib.lua:59: in function gunzip
-  main/main.script:109: in function <main/main.script:104>
+  main/main.script:111: in function <main/main.script:106>
 
